@@ -587,6 +587,11 @@
             document.body.removeChild(textArea);
         }
 
+        function copyToolQuery(toolName) {
+            const t = blueTeamTools.find(item => item.name === toolName);
+            if (t) copyToClipboard(t.query, `${t.name} sorğusu`);
+        }
+
         // --- 4. TAB NAVIGATION ---
         function switchTab(tabId) {
             const sections = ['overview', 'simulator', 'tools', 'mitre', 'roadmap'];
@@ -759,7 +764,7 @@
                     <div class="lg:col-span-5 bg-slate-900 rounded-xl p-4 border border-slate-800 space-y-3">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-mono text-amber-400"><i class="fa-solid fa-terminal mr-1.5"></i>${current.commandTitle}</span>
-                            <button onclick="copyToClipboard(\`${current.command.replace(/`/g, '\`')}\`, 'Əmr')" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-cyberCyan hover:text-slate-950 text-slate-300 transition">
+                            <button onclick="copyToClipboard(picerlData[activePicerlIndex].command, 'Əmr')" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-cyberCyan hover:text-slate-950 text-slate-300 transition">
                                 <i class="fa-regular fa-copy"></i> Kopyala
                             </button>
                         </div>
@@ -968,7 +973,7 @@ User: CORP\helpdesk_temp on DC01.corp.local`,
                 <div class="space-y-2">
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-mono text-slate-400 uppercase"><i class="fa-solid fa-file-code text-cyberCyan mr-1.5"></i>Xam SIEM / Sysmon Loq Məlumatı</span>
-                        <button onclick="copyToClipboard(\`${active.rawLog.replace(/`/g, '\`')}\`, 'Loq')" class="text-xs font-mono text-slate-400 hover:text-cyberCyan transition">
+                        <button onclick="copyToClipboard(simAlerts.find(a => a.id === selectedAlertId).rawLog, 'Loq')" class="text-xs font-mono text-slate-400 hover:text-cyberCyan transition">
                             <i class="fa-regular fa-copy"></i> Loqu Kopyala
                         </button>
                     </div>
@@ -1129,7 +1134,7 @@ User: CORP\helpdesk_temp on DC01.corp.local`,
                 icon: 'fa-radar',
                 desc: 'Yüksək sürətli şəbəkə trafikində imza (Signature) və anomaliya əsaslı müdaxilələri real vaxtda aşkarlayan və bloklayan IDS/IPS mühərriki.',
                 queryLabel: 'Suricata Fast.log Kritik Alert Filtrləmə:',
-                query: 'grep "\[Priority: 1\]" /var/log/suricata/fast.log | awk '{print $1, $2, $5, $11, $13}''
+                query: `grep "\\[Priority: 1\\]" /var/log/suricata/fast.log | awk '{print $1, $2, $5, $11, $13}'`
             },
             {
                 name: 'Zeek (Bro) NSM',
@@ -1156,7 +1161,7 @@ User: CORP\helpdesk_temp on DC01.corp.local`,
                 icon: 'fa-share-nodes',
                 desc: 'Təhdid indikatorlarının (IOC), zərərli proqram imzalarının və APT kampaniyası məlumatlarının toplanması və SIEM/Firewall-a avtomatik ötürülməsi.',
                 queryLabel: 'MISP PyMISP ilə Son 24 Saatın Zərərli IP-ləri:',
-                query: 'python3 -c "from pymisp import PyMISP; m=PyMISP(url, key); print(m.search(type_attribute='ip-dst', last='24h'))"'
+                query: `python3 -c "from pymisp import PyMISP; m=PyMISP(url, key); print(m.search(type_attribute='ip-dst', last='24h'))"`
             },
             {
                 name: 'Volatility 3',
@@ -1200,7 +1205,7 @@ User: CORP\helpdesk_temp on DC01.corp.local`,
                     <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-3 space-y-2">
                         <div class="flex items-center justify-between gap-2">
                             <span class="text-[10px] font-mono text-amber-400 truncate">${tool.queryLabel}</span>
-                            <button onclick="copyToClipboard(\`${tool.query.replace(/`/g, '\`')}\`, '${tool.name} sorğusu')" class="shrink-0 text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-cyberCyan hover:text-slate-950 text-slate-300 transition">
+                            <button onclick="copyToolQuery('${tool.name}')" class="shrink-0 text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-cyberCyan hover:text-slate-950 text-slate-300 transition">
                                 <i class="fa-regular fa-copy"></i>
                             </button>
                         </div>
@@ -1536,9 +1541,9 @@ User: CORP\helpdesk_temp on DC01.corp.local`,
 
         const LAB_CONFIG = {
             modules: {
-                modern: '/modules/modern_check.js',
-                legacy: '/modules/legacy_check.js',
-                generic: '/modules/generic_check.js'
+                modern: './modules/modern_check.js',
+                legacy: './modules/legacy_check.js',
+                generic: './modules/generic_check.js'
             },
             shifting: {
                 blockWebdriver: true,
@@ -1553,7 +1558,7 @@ User: CORP\helpdesk_temp on DC01.corp.local`,
                 batchSize: 5,
                 logToConsole: true
             },
-            antiDebug: true,
+            antiDebug: false,
             delayLoad: 200
         };
 
